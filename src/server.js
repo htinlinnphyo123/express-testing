@@ -14,4 +14,9 @@ app.get('/about', (req, res) => {
     res.render('about');
 });
 
+app.use((req, res) => {
+    res.status(404);
+    res.render('errors/404')
+});
+
 app.listen(3000);
