@@ -1,20 +1,16 @@
-const posts = [
-    { id: 1, name: 'NAME 1', description: 'hello world 1' },
-    { id: 2, name: 'NAME 2', description: 'hello world 2' },
-    { id: 3, name: 'NAME 3', description: 'hello world 3' },
-];
+const blogModel = require('../models/post');
 
-const getAllPosts = () => {
-    return posts;
+const getAllPosts = async () => {
+    return await blogModel.find();
 };
 
-const getPostById = (id) => {
-    return posts.find(post => post.id === id);
+const getPostById = async (id) => {
+    return await blogModel.findById(id);
 };
 
-const getOtherPosts = (id) => {
-    return posts.filter(post=> post.id!==id)
-}
+const getOtherPosts = async (id) => {
+    return await blogModel.find({ _id: { $ne: id } }); 
+};
 
 module.exports = {
     getAllPosts,

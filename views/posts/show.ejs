@@ -2,8 +2,9 @@
 <body>
     <%- include('../partials/navItem.ejs')  %>
     ID - <%= post.id %> <br>
-    NAME - <%- post.name  %> <br>
-    Description - <%- post.description  %> <br>
+    Title - <%- post.title  %> <br>
+    Content - <%- post.content  %> <br>
+    Author - <%- post.author %>
 
     <h1 class="text-lg mt-4 mb-2">Other posts</h1>
     <%- include('../partials/posts/list-table.ejs',{posts:otherPosts}) %>

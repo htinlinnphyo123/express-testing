@@ -1,14 +1,15 @@
 const postService = require('../services/postService')
+const postModel = require('../models/post')
 
-function index(req,res){
-    const posts = postService.getAllPosts();
+async function index(req,res){
+    const posts = await postService.getAllPosts();
     res.render('posts/index',{title:'<h1>HOME</h1>',posts: posts})
 }
 
-function show(req, res) {
-    const postId = parseInt(req.params.id);
-    const post = postService.getPostById(postId);
-    const otherPosts = postService.getOtherPosts(postId);
+async function show(req, res) {
+    const postId = req.params.id;
+    const post = await postService.getPostById(postId);
+    const otherPosts = await postService.getOtherPosts(postId);
     if (post) {
         res.render('posts/show', { post, otherPosts  });
     } else {
@@ -16,7 +17,17 @@ function show(req, res) {
     }
 }
 
+function store(req,res){
+    const post = new postModel({
+        title: 'How to make money online',
+        content: 'Hello World',
+        author:'Mg MG'
+    })
+    post.save();
+    res.render('posts/index')
+}
 module.exports = {
     index,
-    show
+    show,
+    store
 }
