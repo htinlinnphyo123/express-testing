@@ -8,8 +8,11 @@ async function index(req,res){
 
 async function show(req, res) {
     const postId = req.params.id;
-    const post = await postService.getPostById(postId);
-    const otherPosts = await postService.getOtherPosts(postId);
+
+    const [post,otherPosts] = await Promise.all([
+        postService.getPostById(postId),
+        postService.getOtherPosts(postId)
+    ])
     if (post) {
         res.render('posts/show', { post, otherPosts  });
     } else {
